@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Mis 15 Años</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #000000;
+            --bg-dark-secondary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --accent-silver: #c0c0c0;
+            --accent-gray: #808080;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --touch-target-min: 44px;
+        }
+
+        html {
+            font-size: 16px; /* Base para móvil */
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-dark);
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            width: 100%;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ========== CONTENEDOR PRINCIPAL (MOBILE-FIRST) ========== */
+        .main-container {
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        /* ========== LOADER ========== */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100dvh;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            letter-spacing: 2px;
+        }
+
+        .loader-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== ANIMACIONES DE ENTRADA (SCROLL REVEAL) ========== */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .zoom-in.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Staggered delay para elementos múltiples */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+
+        /* ========== ANIMACIÓN SHIMMER PARA TÍTULO PRINCIPAL ========== */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .hero-name {
+            background: linear-gradient(
+                90deg,
+                #ffffff 0%,
+                #ffffff 30%,
+                #c0c0c0 50%,
+                #ffffff 70%,
+                #ffffff 100%
+            );
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.8));
+        }
+
+        /* Fallback para navegadores que no soportan background-clip */
+        @supports not (background-clip: text) {
+            .hero-name {
+                color: var(--text-primary);
+                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8),
+                             0 0 20px rgba(192, 192, 192, 0.3);
+                animation: shimmer-glow 4s ease-in-out infinite;
+            }
+        }
+
+        @keyframes shimmer-glow {
+            0%, 100% {
+                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8),
+                             0 0 20px rgba(192, 192, 192, 0.2);
+            }
+            50% {
+                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8),
+                             0 0 30px rgba(192, 192, 192, 0.5);
+            }
+        }
+
+        /* ========== ANIMACIÓN DE FONDO RESPIRANDO ========== */
+        @keyframes breathe {
+            0%, 100% {
+                background-color: #000000;
+            }
+            50% {
+                background-color: #0a0a0a;
+            }
+        }
+
+        .hero-background {
+            animation: breathe 60s ease-in-out infinite;
+        }
+
+        /* ========== HERO SECTION (MOBILE-FIRST) ========== */
+        .hero {
+            position: relative;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            object-fit: cover;
+            filter: brightness(0.3);
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            word-wrap: break-word;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.875rem, 3vw, 1rem);
+            color: var(--text-secondary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+            word-wrap: break-word;
+        }
+
+        /* ========== COUNTDOWN (MOBILE-FIRST) ========== */
+        .countdown-section {
+            padding: 3rem 1rem;
+            background: var(--bg-dark-secondary);
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            padding: 0 0.5rem;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+            max-width: 100%;
+            padding: 0 0.25rem;
+        }
+
+        .countdown-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .countdown-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .countdown-number {
+            font-size: clamp(1.25rem, 5vw, 1.75rem);
+            font-weight: 600;
+            color: var(--accent-silver);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Animación pop cuando cambia el número */
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .countdown-number.pop {
+            animation: pop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .countdown-label {
+            font-size: clamp(0.6rem, 2.5vw, 0.7rem);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* ========== MUSIC EXPERIENCE SECTION ========== */
+        .music-section {
+            padding: 3rem 1rem;
+            background: var(--bg-dark);
+            width: 100%;
+        }
+
+        .music-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-album-art {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .album-cover {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .album-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.3) 100%);
+            pointer-events: none;
+        }
+
+        /* Animación de giro cuando está reproduciendo */
+        .album-cover.playing {
+            animation: spin-vinyl 8s linear infinite;
+            box-shadow: 0 10px 40px rgba(192, 192, 192, 0.3),
+                        0 0 30px rgba(192, 192, 192, 0.1);
+        }
+
+        @keyframes spin-vinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .music-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .music-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .music-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .music-artist {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--accent-silver);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .music-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .audio-visualizer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            height: 40px;
+        }
+
+        .visualizer-bar {
+            width: 4px;
+            background: var(--accent-silver);
+            border-radius: 2px;
+            height: 20px;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .audio-visualizer.playing .visualizer-bar {
+            opacity: 1;
+        }
+
+        /* Animación de las barras del ecualizador */
+        .audio-visualizer.playing .visualizer-bar:nth-child(1) {
+            animation: visualizer-wave 1s ease-in-out infinite;
+            animation-delay: 0s;
+        }
+
+        .audio-visualizer.playing .visualizer-bar:nth-child(2) {
+            animation: visualizer-wave 1s ease-in-out infinite;
+            animation-delay: 0.1s;
+        }
+
+        .audio-visualizer.playing .visualizer-bar:nth-child(3) {
+            animation: visualizer-wave 1s ease-in-out infinite;
+            animation-delay: 0.2s;
+        }
+
+        .audio-visualizer.playing .visualizer-bar:nth-child(4) {
+            animation: visualizer-wave 1s ease-in-out infinite;
+            animation-delay: 0.3s;
+        }
+
+        .audio-visualizer.playing .visualizer-bar:nth-child(5) {
+            animation: visualizer-wave 1s ease-in-out infinite;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes visualizer-wave {
+            0%, 100% {
+                height: 20px;
+                transform: scaleY(1);
+            }
+            50% {
+                height: 40px;
+                transform: scaleY(1.5);
+            }
+        }
+
+        .music-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .music-play-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 32px -5px rgba(255, 255, 255, 0.3),
+                        0 8px 24px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .music-play-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .music-play-btn #pauseIcon {
+            display: none;
+        }
+
+        .music-play-btn.playing #playIcon {
+            display: none;
+        }
+
+        .music-play-btn.playing #pauseIcon {
+            display: block;
+        }
+
+        .music-play-btn.playing {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(192, 192, 192, 0.2);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-silver), var(--text-primary));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .music-container.playing .progress-bar {
+            animation: progress-animation 30s linear infinite;
+        }
+
+        @keyframes progress-animation {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* ========== TIMELINE SECTION (MINIMALISTA CENTRADO) ========== */
+        .timeline-section {
+            padding: 4rem 1rem;
+            background: var(--bg-dark);
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+        }
+
+        /* Título Tipográfico Elegante (Mantenido) */
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 0;
+        }
+
+        .timeline-header-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(192, 192, 192, 0.3) 50%, 
+                transparent 100%);
+            max-width: 100px;
+        }
+
+        .timeline-header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .timeline-header-small {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .timeline-header-main {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Contenedor Centrado */
+        .timeline-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Items de Evento - Minimalista */
+        .timeline-item {
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contenido del Evento */
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Icono Minimalista */
+        .timeline-icon {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--accent-silver);
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-icon {
+            transform: scale(1.1);
+            color: var(--text-primary);
+        }
+
+        /* Título del Evento */
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--text-primary);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        /* Horario Destacado */
+        .timeline-time {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 600;
+            color: var(--accent-silver);
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* Lugar/Dirección */
+        .timeline-location {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Botón Ver Mapa - Único elemento con estilo de botón */
+        .timeline-map-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .timeline-map-link:hover {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .ghost-btn {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.875rem 1.75rem;
+            min-height: var(--touch-target-min);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ghost-btn:hover {
+            background: var(--glass-bg);
+            border-color: var(--accent-silver);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
+        }
+
+        .ghost-btn:active {
+            transform: translateY(-1px) scale(0.98);
+            box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ========== INFO SECTION (MINIMALISTA FLOTANTE) ========== */
+        .info-section {
+            padding: 4rem 1rem;
+            background: var(--bg-dark-secondary);
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Patrón de fondo geométrico sutil (Red/Constelación) */
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Puntos de constelación - múltiples capas */
+                radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 35% 65%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 95% 75%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 5% 85%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 65% 5%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 25% 45%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 75% 55%, rgba(255, 255, 255, 0.04) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at 45% 80%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                /* Líneas diagonales sutiles */
+                linear-gradient(135deg, transparent 47%, rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.02) 52%, transparent 53%),
+                linear-gradient(45deg, transparent 47%, rgba(255, 255, 255, 0.02) 48%, rgba(255, 255, 255, 0.02) 52%, transparent 53%),
+                linear-gradient(90deg, transparent 47%, rgba(255, 255, 255, 0.015) 48%, rgba(255, 255, 255, 0.015) 52%, transparent 53%),
+                linear-gradient(0deg, transparent 47%, rgba(255, 255, 255, 0.015) 48%, rgba(255, 255, 255, 0.015) 52%, transparent 53%);
+            background-size: 
+                180px 180px,
+                220px 220px,
+                200px 200px,
+                240px 240px,
+                190px 190px,
+                210px 210px,
+                195px 195px,
+                225px 225px,
+                250px 250px,
+                230px 230px,
+                400px 400px,
+                400px 400px,
+                350px 350px,
+                350px 350px;
+            background-position: 
+                0% 0%,
+                100% 0%,
+                0% 100%,
+                100% 100%,
+                50% 0%,
+                0% 50%,
+                50% 100%,
+                100% 50%,
+                25% 25%,
+                75% 75%,
+                0% 0%,
+                100% 100%,
+                50% 50%,
+                0% 100%;
+            animation: backgroundFloat 90s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 1;
+        }
+
+        /* Asegurar que el contenido esté sobre el patrón */
+        .info-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% {
+                background-position: 
+                    0% 0%,
+                    100% 0%,
+                    0% 100%,
+                    100% 100%,
+                    50% 0%,
+                    0% 50%,
+                    50% 100%,
+                    100% 50%,
+                    25% 25%,
+                    75% 75%,
+                    0% 0%,
+                    100% 100%,
+                    50% 50%,
+                    0% 100%;
+            }
+            25% {
+                background-position: 
+                    8% 4%,
+                    92% 8%,
+                    4% 96%,
+                    96% 92%,
+                    54% 4%,
+                    4% 54%,
+                    54% 96%,
+                    96% 46%,
+                    29% 29%,
+                    79% 79%,
+                    3% 3%,
+                    97% 97%,
+                    53% 53%,
+                    3% 97%;
+            }
+            50% {
+                background-position: 
+                    4% 8%,
+                    96% 4%,
+                    8% 92%,
+                    92% 96%,
+                    46% 8%,
+                    8% 46%,
+                    46% 92%,
+                    92% 54%,
+                    21% 21%,
+                    71% 71%,
+                    6% 6%,
+                    94% 94%,
+                    46% 46%,
+                    6% 94%;
+            }
+            75% {
+                background-position: 
+                    6% 6%,
+                    94% 6%,
+                    6% 94%,
+                    94% 94%,
+                    52% 6%,
+                    6% 52%,
+                    52% 94%,
+                    94% 48%,
+                    27% 27%,
+                    77% 77%,
+                    2% 2%,
+                    98% 98%,
+                    52% 52%,
+                    2% 98%;
+            }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .info-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Iconos grandes y elegantes */
+        .info-icon {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--accent-silver);
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .info-item:hover .info-icon {
+            transform: scale(1.1);
+            color: var(--text-primary);
+        }
+
+        /* Títulos Serif */
+        .info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--text-primary);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        /* Texto descriptivo */
+        .info-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Nota pequeña opcional */
+        .info-note {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+            color: var(--accent-gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Separador opcional entre bloques en móvil */
+        .info-divider {
+            width: 50px;
+            height: 1px;
+            background: rgba(192, 192, 192, 0.3);
+            margin: 1.5rem auto 0;
+        }
+
+        .info-item:last-child .info-divider {
+            display: none; /* No mostrar separador después del último elemento */
+        }
+
+        /* Sección de Regalo - Estilos específicos */
+        .gift-quote {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: var(--text-secondary);
+            margin: 0.5rem 0 1rem 0;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .gift-data {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .gift-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .gift-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            color: var(--accent-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .gift-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-primary);
+            font-weight: 500;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        /* Botón Copiar - Estilo Ghost Button */
+        .copy-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .copy-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4caf50;
+            color: #4caf50;
+        }
+
+        /* ========== RSVP SECTION (MOBILE-FIRST) ========== */
+        .rsvp-section {
+            padding: 3rem 1rem;
+            background: var(--bg-dark);
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            text-align: center;
+        }
+
+        .rsvp-btn {
+            background: var(--accent-silver);
+            color: var(--bg-dark);
+            padding: 1.125rem 1.5rem;
+            min-height: var(--touch-target-min);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(192, 192, 192, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+            -webkit-tap-highlight-color: transparent;
+            word-wrap: break-word;
+        }
+
+        .rsvp-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rsvp-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px -5px rgba(192, 192, 192, 0.4),
+                        0 4px 20px rgba(192, 192, 192, 0.3);
+        }
+
+        .rsvp-btn:active {
+            transform: translateY(-1px) scale(1);
+            box-shadow: 0 5px 20px -5px rgba(192, 192, 192, 0.3);
+        }
+
+        /* ========== TABLET (481px - 1023px) ========== */
+        @media (min-width: 481px) and (max-width: 1023px) {
+            .countdown-container {
+                gap: 1rem;
+                max-width: 600px;
+            }
+
+            .countdown-item {
+                padding: 1.5rem 1rem;
+            }
+
+            .countdown-number {
+                font-size: 2.25rem;
+            }
+
+            .countdown-label {
+                font-size: 0.75rem;
+            }
+
+            .timeline-item {
+                padding: 2rem;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .info-grid {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .info-card {
+                padding: 2rem;
+            }
+
+            .rsvp-btn {
+                width: auto;
+                padding: 1.125rem 3rem;
+            }
+
+            .copy-btn {
+                width: auto;
+            }
+        }
+
+        /* ========== DESKTOP (1024px+) - ANCHO COMPLETO ========== */
+        @media (min-width: 1024px) {
+            .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* Hero Section - Ancho completo con parallax */
+            .hero {
+                min-height: 100vh;
+            }
+
+            .hero-background {
+                background-attachment: fixed;
+                background-size: cover;
+                width: 100%;
+            }
+
+            .hero-content {
+                padding: 4rem 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .hero-name {
+                font-size: clamp(4rem, 8vw, 6rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(1.25rem, 2vw, 1.75rem);
+                letter-spacing: 8px;
+            }
+
+            /* Music Section - Layout horizontal en desktop */
+            .music-section {
+                padding: 5rem 2rem;
+            }
+
+            .music-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 3rem;
+                padding: 3rem;
+                max-width: 1200px;
+            }
+
+            .music-album-art {
+                flex-shrink: 0;
+            }
+
+            .album-cover {
+                width: 280px;
+                height: 280px;
+            }
+
+            .music-info {
+                flex: 1;
+                text-align: left;
+            }
+
+            .music-controls {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 2rem;
+            }
+
+            .audio-visualizer {
+                order: 1;
+            }
+
+            .music-play-btn {
+                order: 2;
+                width: 90px;
+                height: 90px;
+                font-size: 2.25rem;
+            }
+
+            .progress-bar-container {
+                order: 3;
+                flex: 1;
+                max-width: 300px;
+            }
+
+            /* Countdown - Centrado con más espacio */
+            .countdown-section {
+                padding: 5rem 2rem;
+            }
+
+            .section-title {
+                font-size: clamp(2.5rem, 4vw, 3.5rem);
+                margin-bottom: 3rem;
+            }
+
+            .countdown-container {
+                gap: 2rem;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .countdown-item {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .countdown-number {
+                font-size: clamp(3rem, 5vw, 4.5rem);
+            }
+
+            .countdown-label {
+                font-size: 0.9rem;
+                margin-top: 0.75rem;
+            }
+
+            /* Timeline - Minimalista Centrado */
+            .timeline-section {
+                padding: 6rem 2rem;
+            }
+
+            .timeline-header {
+                margin-bottom: 5rem;
+            }
+
+            .timeline-header-line {
+                max-width: 150px;
+            }
+
+            .timeline-container {
+                max-width: 700px;
+            }
+
+            .timeline-item {
+                margin-bottom: 4.5rem;
+            }
+
+            .timeline-icon {
+                font-size: 2.5rem;
+            }
+
+            .timeline-title {
+                font-size: 2.25rem;
+            }
+
+            .timeline-time {
+                font-size: 1.875rem;
+            }
+
+            .timeline-location {
+                font-size: 1.125rem;
+            }
+
+            .timeline-map-link {
+                padding: 0.75rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            /* Info Section - Grid horizontal en desktop */
+            .info-section {
+                padding: 6rem 2rem;
+            }
+
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3rem;
+                max-width: 1200px;
+            }
+
+            .info-divider {
+                display: none; /* Ocultar separadores en desktop */
+            }
+
+            .info-icon {
+                font-size: 3rem;
+            }
+
+            .info-title {
+                font-size: 2.25rem;
+            }
+
+            .info-text {
+                font-size: 1.125rem;
+            }
+
+            .info-note {
+                font-size: 0.95rem;
+            }
+
+            .gift-quote {
+                font-size: 1.05rem;
+            }
+
+            .gift-value {
+                font-size: 1.375rem;
+            }
+
+            .copy-btn {
+                padding: 0.75rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            /* RSVP Section */
+            .rsvp-section {
+                padding: 5rem 2rem;
+            }
+
+            .rsvp-btn {
+                width: auto;
+                padding: 1.5rem 4rem;
+                font-size: 1.125rem;
+                letter-spacing: 3px;
+            }
+
+            .copy-btn {
+                width: auto;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .ghost-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            /* Music Player - Centrado pero ancho completo */
+            .music-player {
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        /* ========== MÓVILES MUY PEQUEÑOS (320px - 360px) ========== */
+        @media (max-width: 360px) {
+            html {
+                font-size: 14px;
+            }
+
+            .hero-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .countdown-container {
+                gap: 0.4rem;
+            }
+
+            .countdown-item {
+                padding: 0.875rem 0.4rem;
+            }
+
+            .timeline-item {
+                padding: 1.5rem;
+            }
+
+            .info-card {
+                padding: 1.5rem;
+            }
+
+            .ghost-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
+            }
+
+            .copy-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ========== LARGE DESKTOP (1440px+) ========== */
+        @media (min-width: 1440px) {
+            html {
+                font-size: 18px;
+            }
+
+            .hero-content {
+                max-width: 1400px;
+            }
+
+            .countdown-container {
+                max-width: 1100px;
+            }
+
+            .timeline-container {
+                max-width: 1400px;
+            }
+
+            .info-grid {
+                max-width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-name">Flor</div>
+            <div class="loader-subtitle">Mis 15 Años</div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-container">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-background" id="heroBackground"></div>
+            <div class="hero-content">
+                <h1 class="hero-name">Flor</h1>
+                <p class="hero-subtitle">Mis 15 Años</p>
+            </div>
+        </section>
+
+        <!-- MUSIC EXPERIENCE SECTION -->
+        <section class="music-section">
+            <div class="music-container fade-in-up stagger-1">
+                <div class="music-album-art">
+                    <div class="album-cover" id="albumCover">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80" alt="Álbum" id="albumImage">
+                        <div class="album-overlay"></div>
+                    </div>
+                </div>
+                <div class="music-info">
+                    <p class="music-quote">"La música es el lenguaje del alma, y esta canción marca mi momento especial..."</p>
+                    <div class="music-details">
+                        <h3 class="music-title">Canción Especial</h3>
+                        <p class="music-artist">Artista Favorito</p>
+                    </div>
+                    <div class="music-controls">
+                        <div class="audio-visualizer" id="audioVisualizer">
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                            <div class="visualizer-bar"></div>
+                        </div>
+                        <button class="music-play-btn" id="musicPlayBtn" onclick="toggleMusic()">
+                            <i class="fas fa-play" id="playIcon"></i>
+                            <i class="fas fa-pause" id="pauseIcon"></i>
+                        </button>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <audio id="audioPlayer" loop>
+                <!-- Aquí puedes agregar tu archivo de audio -->
+                <!-- <source src="music.mp3" type="audio/mpeg"> -->
+            </audio>
+        </section>
+
+        <!-- COUNTDOWN -->
+        <section class="countdown-section">
+            <h2 class="section-title fade-in-up" id="countdownTitle">La Fiesta Comienza En</h2>
+            <div class="countdown-container fade-in-up stagger-1" id="countdownContainer">
+                <div class="countdown-item zoom-in stagger-1">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item zoom-in stagger-2">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item zoom-in stagger-3">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item zoom-in stagger-4">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="timeline-section">
+            <div class="timeline-header fade-in-up">
+                <div class="timeline-header-title">
+                    <div class="timeline-header-line"></div>
+                    <div class="timeline-header-text">
+                        <span class="timeline-header-small">La</span>
+                        <span class="timeline-header-main">Fiesta</span>
+                    </div>
+                    <div class="timeline-header-line"></div>
+                </div>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-item fade-in-up stagger-1" id="timeline3">
+                    <div class="timeline-content">
+                        <div class="timeline-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="timeline-title">Fiesta</h3>
+                        <p class="timeline-time">21:30 hs</p>
+                        <p class="timeline-location">Simonah Disco</p>
+                        <a href="https://maps.google.com/?q=-31.450853993866325,-60.922181174424864" target="_blank" class="timeline-map-link">
+                            Ver Mapa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENTRADA, DRESS CODE & REGALO -->
+        <section class="info-section">
+            <div class="info-grid">
+                <!-- Entrada -->
+                <div class="info-item fade-in-up stagger-1" id="priceCard">
+                    <div class="info-content">
+                        <div class="info-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3 class="info-title">Entrada</h3>
+                        <p class="info-text">Acceso personal e intransferible</p>
+                        <p class="info-text">Adultos: $65.000</p>
+                    </div>
+                    <div class="info-divider"></div>
+                </div>
+
+                <!-- Dress Code -->
+                <div class="info-item fade-in-up stagger-2" id="dressCard">
+                    <div class="info-content">
+                        <div class="info-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="info-title">Dress Code</h3>
+                        <p class="info-text">Elegante Sport</p>
+                        <p class="info-note">Se reserva el derecho de admisión</p>
+                    </div>
+                    <div class="info-divider"></div>
+                </div>
+
+                <!-- Regalo -->
+                <div class="info-item fade-in-up stagger-3" id="giftCard">
+                    <div class="info-content">
+                        <div class="info-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3 class="info-title">Regalo</h3>
+                        <p class="gift-quote">Tu presencia es mi mejor regalo. Si deseas tener un detalle conmigo...</p>
+                        <div class="gift-data">
+                            <div class="gift-item">
+                                <span class="gift-label">Alias</span>
+                                <span class="gift-value" id="aliasValue">FLOR.15AÑOS</span>
+                            </div>
+                            <div class="gift-item">
+                                <span class="gift-label">CBU</span>
+                                <span class="gift-value" id="cbuValue">1234567890123456789012</span>
+                            </div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('FLOR.15AÑOS', this)">Copiar Alias</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="rsvp-section">
+            <a href="https://wa.me/5491123456789?text=Hola!%20Confirmo%20mi%20asistencia%20a%20tu%20fiesta%20de%2015%20años.%20¡Estoy%20muy%20emocionado/a!" 
+               target="_blank" 
+               class="rsvp-btn fade-in-up stagger-1" 
+               id="rsvpBtn">
+                Confirmar Asistencia
+            </a>
+        </section>
+    </div>
+
+
+    <script>
+        // ========== LOADER ==========
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // ========== PARALLAX EFFECT (Optimizado para móvil y desktop) ==========
+        const heroBackground = document.getElementById('heroBackground');
+        const hero = document.querySelector('.hero');
+        let ticking = false;
+
+        function updateParallax() {
+            const isDesktop = window.innerWidth >= 1024;
+            const scrolled = window.pageYOffset;
+            const heroHeight = hero ? hero.offsetHeight : window.innerHeight;
+            
+            // En desktop, el parallax se maneja con background-attachment: fixed
+            // Solo aplicamos transform en móvil/tablet
+            if (!isDesktop && scrolled < heroHeight && heroBackground) {
+                const parallaxSpeed = 0.3;
+                heroBackground.style.transform = `translateY(${scrolled * parallaxSpeed}px) scale(1.1)`;
+            } else if (isDesktop && heroBackground) {
+                // En desktop, solo mantenemos el scale
+                heroBackground.style.transform = 'scale(1.1)';
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Actualizar parallax al cambiar tamaño de ventana
+        window.addEventListener('resize', () => {
+            updateParallax();
+        });
+
+        // ========== COUNTDOWN ==========
+        // Fecha del evento: 28 de Febrero de 2026 a las 21:30 hs
+        const eventDate = new Date('2026-02-28T21:30:00').getTime();
+
+        // Almacenar valores anteriores para detectar cambios
+        let previousValues = {
+            days: null,
+            hours: null,
+            minutes: null,
+            seconds: null
+        };
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Función helper para actualizar con animación pop
+            function updateWithPop(elementId, newValue, previousValue) {
+                const element = document.getElementById(elementId);
+                const newValueStr = String(newValue).padStart(2, '0');
+                
+                if (previousValue !== null && previousValue !== newValue) {
+                    element.textContent = newValueStr;
+                    element.classList.add('pop');
+                    setTimeout(() => {
+                        element.classList.remove('pop');
+                    }, 400);
+                } else {
+                    element.textContent = newValueStr;
+                }
+            }
+
+            // Actualizar cada valor con animación si cambió
+            updateWithPop('days', days, previousValues.days);
+            updateWithPop('hours', hours, previousValues.hours);
+            updateWithPop('minutes', minutes, previousValues.minutes);
+            updateWithPop('seconds', seconds, previousValues.seconds);
+
+            // Guardar valores actuales
+            previousValues = { days, hours, minutes, seconds };
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ========== INTERSECTION OBSERVER (Scroll Reveal) ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Opcional: dejar de observar después de aparecer para mejor rendimiento
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar todos los elementos con clases de animación
+        const animatedElements = document.querySelectorAll('.fade-in-up, .zoom-in');
+        animatedElements.forEach(el => {
+            if (el) observer.observe(el);
+        });
+
+        // ========== MUSIC EXPERIENCE SECTION ==========
+        const audioPlayer = document.getElementById('audioPlayer');
+        const musicPlayBtn = document.getElementById('musicPlayBtn');
+        const albumCover = document.getElementById('albumCover');
+        const audioVisualizer = document.getElementById('audioVisualizer');
+        const musicContainer = document.querySelector('.music-container');
+        const progressBar = document.getElementById('progressBar');
+        let isPlaying = false;
+        let progressInterval = null;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                // Pausar música
+                audioPlayer.pause();
+                musicPlayBtn.classList.remove('playing');
+                albumCover.classList.remove('playing');
+                audioVisualizer.classList.remove('playing');
+                musicContainer.classList.remove('playing');
+                isPlaying = false;
+                
+                // Detener animación de progreso
+                if (progressInterval) {
+                    clearInterval(progressInterval);
+                    progressInterval = null;
+                }
+            } else {
+                // Reproducir música
+                // Descomentar cuando tengas el archivo de audio:
+                // audioPlayer.play();
+                
+                musicPlayBtn.classList.add('playing');
+                albumCover.classList.add('playing');
+                audioVisualizer.classList.add('playing');
+                musicContainer.classList.add('playing');
+                isPlaying = true;
+                
+                // Mostrar mensaje si no hay audio
+                if (audioPlayer.src === '') {
+                    console.log('Agrega tu archivo de audio en el elemento <audio>');
+                } else {
+                    // Simular progreso de la canción
+                    let progress = 0;
+                    progressInterval = setInterval(() => {
+                        if (isPlaying) {
+                            progress += 0.33; // Simula progreso
+                            if (progress > 100) progress = 0;
+                            progressBar.style.width = progress + '%';
+                        }
+                    }, 100);
+                }
+            }
+        }
+
+        // Actualizar progreso cuando el audio se reproduce realmente
+        if (audioPlayer) {
+            audioPlayer.addEventListener('timeupdate', () => {
+                if (audioPlayer.duration) {
+                    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            });
+
+            audioPlayer.addEventListener('ended', () => {
+                // Si el audio termina, resetear
+                progressBar.style.width = '0%';
+            });
+        }
+
+        // ========== COPY TO CLIPBOARD ==========
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '¡Copiado!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar:', err);
+                // Fallback para navegadores antiguos
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                button.textContent = '¡Copiado!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copiar Alias';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // ========== SMOOTH SCROLL ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
