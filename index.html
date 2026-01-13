@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
     
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -58,11 +58,47 @@
             padding: 0;
         }
 
+        /* ========== CONTENEDOR DE ESTRELLAS SVG (GENERADAS POR JS) ========== */
+        #star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star-svg {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .star-svg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .star-svg.twinkle {
+            animation: starTwinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
         /* ========== CONTENEDOR PRINCIPAL (MOBILE-FIRST) ========== */
         .main-container {
             width: 100%;
             margin: 0 auto;
             position: relative;
+            z-index: 1;
             overflow-x: hidden;
             max-width: 100vw;
         }
@@ -201,19 +237,6 @@
             }
         }
 
-        /* ========== ANIMACIÓN DE FONDO RESPIRANDO ========== */
-        @keyframes breathe {
-            0%, 100% {
-                background-color: #000000;
-            }
-            50% {
-                background-color: #0a0a0a;
-            }
-        }
-
-        .hero-background {
-            animation: breathe 60s ease-in-out infinite;
-        }
 
         /* ========== HERO SECTION (MOBILE-FIRST) ========== */
         .hero {
@@ -223,62 +246,107 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: transparent;
         }
 
         .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            object-fit: cover;
-            filter: brightness(0.3);
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
-            will-change: transform;
+            /* Elemento oculto - imagen de fondo eliminada, usando fondo oscuro unificado */
+            display: none;
         }
 
-        .hero-content {
+        .hero-star-container {
             position: relative;
             z-index: 2;
-            text-align: center;
-            padding: 2rem 1rem;
+            width: 90vw;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
             animation: fadeInUp 1s ease 0.5s forwards;
-            width: 100%;
-            max-width: 100%;
             box-sizing: border-box;
         }
 
-        .hero-name {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 8vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-            word-wrap: break-word;
+        .star-shape {
+            position: absolute;
+            top: -5%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            fill: #141414;
+            stroke: #ffffff;
+            stroke-width: 8px;
+            overflow: visible;
         }
 
-        .hero-subtitle {
-            font-size: clamp(0.875rem, 3vw, 1rem);
-            color: var(--text-secondary);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 300;
+        .hero-text {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .titulo-flor {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.05em;
             word-wrap: break-word;
+            color: #ffffff;
+            line-height: 1;
+            font-style: italic;
+        }
+
+        .subtitulo-15 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: transparent;
+            background: linear-gradient(45deg, #C0C0C0, #E8E8E8, #C0C0C0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-size: 200% auto;
+            margin: 0.5rem 0 0 0;
+            white-space: nowrap;
+            animation: shimmer-silver 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer-silver {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
         }
 
         /* ========== COUNTDOWN (MOBILE-FIRST) ========== */
         .countdown-section {
             padding: 3rem 1rem;
-            background: var(--bg-dark-secondary);
-            background-size: cover;
-            background-position: center;
+            background: transparent;
             width: 100%;
             text-align: center;
+        }
+
+        /* Clase para fondo de pincelada en títulos */
+        .title-brush-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.7,66.4C53.1,23.9,163.6-10.2,278.3,4.7c93.9,12.2,168.1,33.8,249.5,50.3c38.9,7.9,64.4,26.3,60.5,48.9c-3.5,20.3-27.7,38.2-63.4,42.3c-94.2,10.8-214.3-22.1-299.7-41.8C131.5,83.4,59.1,68.1,11.7,66.4z' fill='%23141414'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px 40px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.1));
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section-title {
@@ -289,7 +357,6 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
-            padding: 0 0.5rem;
         }
 
         .section-title.visible {
@@ -359,9 +426,10 @@
         }
 
         /* ========== MUSIC EXPERIENCE SECTION ========== */
+        /* ========== MUSIC PLAYER (ESTÁNDAR) ========== */
         .music-section {
             padding: 3rem 1rem;
-            background: var(--bg-dark);
+            background: transparent;
             width: 100%;
         }
 
@@ -369,193 +437,176 @@
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
-            max-width: 900px;
+            align-items: center;
+            gap: 15px;
+            max-width: 500px;
             margin: 0 auto;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .music-album-art {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .album-cover {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .album-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .album-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.3) 100%);
-            pointer-events: none;
-        }
-
-        /* Animación de giro cuando está reproduciendo */
-        .album-cover.playing {
-            animation: spin-vinyl 8s linear infinite;
-            box-shadow: 0 10px 40px rgba(192, 192, 192, 0.3),
-                        0 0 30px rgba(192, 192, 192, 0.1);
-        }
-
-        @keyframes spin-vinyl {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .music-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        /* Texto de instrucción superior */
+        .music-instruction {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
             text-align: center;
         }
 
-        .music-quote {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin: 0;
-            opacity: 0.9;
+        /* Barra de progreso estilizada */
+        .music-progress-wrapper {
+            width: 100%;
+            position: relative;
+            height: 4px;
         }
 
-        .music-details {
+        .music-progress-slider {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Track de fondo */
+        .music-progress-slider::-webkit-slider-runnable-track {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .music-progress-slider::-moz-range-track {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        /* Indicador de progreso rellenado */
+        .music-progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: var(--accent-silver);
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 1;
+            transition: width 0.1s linear;
+        }
+
+        /* Thumb (círculo deslizante) */
+        .music-progress-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: -4px;
+        }
+
+        .music-progress-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .music-progress-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .music-progress-slider::-moz-range-thumb:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Contenedor de controles */
+        .music-controls-row {
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .music-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin: 0;
-        }
-
-        .music-artist {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--accent-silver);
-            margin: 0;
-            font-weight: 300;
-        }
-
-        .music-controls {
-            display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
+            justify-content: center;
             gap: 1.5rem;
+            width: 100%;
         }
 
-        .audio-visualizer {
+        /* Iconos de control (Shuffle, Prev, Next, Repeat) */
+        .music-control-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
-            height: 40px;
+            transition: all 0.3s ease;
+            min-width: 40px;
+            min-height: 40px;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .visualizer-bar {
-            width: 4px;
-            background: var(--accent-silver);
-            border-radius: 2px;
-            height: 20px;
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-        }
-
-        .audio-visualizer.playing .visualizer-bar {
-            opacity: 1;
-        }
-
-        /* Animación de las barras del ecualizador */
-        .audio-visualizer.playing .visualizer-bar:nth-child(1) {
-            animation: visualizer-wave 1s ease-in-out infinite;
-            animation-delay: 0s;
-        }
-
-        .audio-visualizer.playing .visualizer-bar:nth-child(2) {
-            animation: visualizer-wave 1s ease-in-out infinite;
-            animation-delay: 0.1s;
-        }
-
-        .audio-visualizer.playing .visualizer-bar:nth-child(3) {
-            animation: visualizer-wave 1s ease-in-out infinite;
-            animation-delay: 0.2s;
-        }
-
-        .audio-visualizer.playing .visualizer-bar:nth-child(4) {
-            animation: visualizer-wave 1s ease-in-out infinite;
-            animation-delay: 0.3s;
-        }
-
-        .audio-visualizer.playing .visualizer-bar:nth-child(5) {
-            animation: visualizer-wave 1s ease-in-out infinite;
-            animation-delay: 0.4s;
-        }
-
-        @keyframes visualizer-wave {
-            0%, 100% {
-                height: 20px;
-                transform: scaleY(1);
-            }
-            50% {
-                height: 40px;
-                transform: scaleY(1.5);
-            }
-        }
-
-        .music-play-btn {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--glass-border);
+        .music-control-btn:hover {
             color: var(--text-primary);
-            font-size: 2rem;
+            transform: scale(1.1);
+        }
+
+        .music-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .music-control-btn.active {
+            color: var(--accent-silver);
+        }
+
+        /* Botón Play Principal (Destacado) */
+        .music-play-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-primary);
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             -webkit-tap-highlight-color: transparent;
         }
 
         .music-play-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 32px -5px rgba(255, 255, 255, 0.3),
-                        0 8px 24px rgba(0, 0, 0, 0.4);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
         }
 
         .music-play-btn:active {
-            transform: translateY(-1px) scale(1.02);
+            transform: scale(0.98);
         }
 
         .music-play-btn #pauseIcon {
@@ -571,41 +622,14 @@
         }
 
         .music-play-btn.playing {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
-                        0 0 20px rgba(192, 192, 192, 0.2);
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-silver), var(--text-primary));
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .music-container.playing .progress-bar {
-            animation: progress-animation 30s linear infinite;
-        }
-
-        @keyframes progress-animation {
-            from { width: 0%; }
-            to { width: 100%; }
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(192, 192, 192, 0.3);
         }
 
         /* ========== TIMELINE SECTION (MINIMALISTA CENTRADO) ========== */
         .timeline-section {
             padding: 4rem 1rem;
-            background: var(--bg-dark);
-            background-size: cover;
-            background-position: center;
+            background: transparent;
             width: 100%;
         }
 
@@ -789,9 +813,7 @@
         /* ========== INFO SECTION (MINIMALISTA FLOTANTE) ========== */
         .info-section {
             padding: 4rem 1rem;
-            background: var(--bg-dark-secondary);
-            background-size: cover;
-            background-position: center;
+            background-color: rgba(20, 20, 20, 0.85);
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -1090,9 +1112,7 @@
         /* ========== RSVP SECTION (MOBILE-FIRST) ========== */
         .rsvp-section {
             padding: 3rem 1rem;
-            background: var(--bg-dark);
-            background-size: cover;
-            background-position: center;
+            background: transparent;
             width: 100%;
             text-align: center;
         }
@@ -1198,77 +1218,45 @@
                 min-height: 100vh;
             }
 
-            .hero-background {
-                background-attachment: fixed;
-                background-size: cover;
-                width: 100%;
+
+            .hero-star-container {
+                width: 90vw;
+                max-width: 500px;
+                aspect-ratio: 1 / 1;
             }
 
-            .hero-content {
-                padding: 4rem 2rem;
-                max-width: 1200px;
-                margin: 0 auto;
+            .titulo-flor {
+                font-size: clamp(5rem, 14vw, 10rem);
             }
 
-            .hero-name {
-                font-size: clamp(4rem, 8vw, 6rem);
-                margin-bottom: 1.5rem;
+            .subtitulo-15 {
+                font-size: clamp(2.5rem, 7vw, 5rem);
             }
 
-            .hero-subtitle {
-                font-size: clamp(1.25rem, 2vw, 1.75rem);
-                letter-spacing: 8px;
-            }
-
-            /* Music Section - Layout horizontal en desktop */
+            /* Music Player - Desktop */
             .music-section {
-                padding: 5rem 2rem;
+                padding: 4rem 2rem;
             }
 
             .music-container {
-                flex-direction: row;
-                align-items: center;
-                gap: 3rem;
-                padding: 3rem;
-                max-width: 1200px;
+                padding: 2rem 2.5rem;
+                max-width: 600px;
             }
 
-            .music-album-art {
-                flex-shrink: 0;
-            }
-
-            .album-cover {
-                width: 280px;
-                height: 280px;
-            }
-
-            .music-info {
-                flex: 1;
-                text-align: left;
-            }
-
-            .music-controls {
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-start;
-                gap: 2rem;
-            }
-
-            .audio-visualizer {
-                order: 1;
+            .music-instruction {
+                font-size: 1rem;
             }
 
             .music-play-btn {
-                order: 2;
-                width: 90px;
-                height: 90px;
-                font-size: 2.25rem;
+                width: 72px;
+                height: 72px;
+                font-size: 1.75rem;
             }
 
-            .progress-bar-container {
-                order: 3;
-                flex: 1;
-                max-width: 300px;
+            .music-control-btn {
+                font-size: 1.25rem;
+                min-width: 44px;
+                min-height: 44px;
             }
 
             /* Countdown - Centrado con más espacio */
@@ -1427,8 +1415,18 @@
                 font-size: 14px;
             }
 
-            .hero-content {
-                padding: 1.5rem 1rem;
+            .hero-star-container {
+                width: 90vw;
+                max-width: 500px;
+                aspect-ratio: 1 / 1;
+            }
+
+            .titulo-flor {
+                font-size: clamp(2.5rem, 10vw, 6rem);
+            }
+
+            .subtitulo-15 {
+                font-size: clamp(1.5rem, 5vw, 3rem);
             }
 
             .countdown-container {
@@ -1464,8 +1462,18 @@
                 font-size: 18px;
             }
 
-            .hero-content {
-                max-width: 1400px;
+            .hero-star-container {
+                width: 90vw;
+                max-width: 500px;
+                aspect-ratio: 1 / 1;
+            }
+
+            .titulo-flor {
+                font-size: clamp(6rem, 16vw, 12rem);
+            }
+
+            .subtitulo-15 {
+                font-size: clamp(3rem, 8vw, 6rem);
             }
 
             .countdown-container {
@@ -1483,6 +1491,9 @@
     </style>
 </head>
 <body>
+    <!-- CONTENEDOR DE ESTRELLAS SVG (Generadas por JavaScript) -->
+    <div id="star-container"></div>
+
     <!-- LOADER -->
     <div class="loader" id="loader">
         <div class="loader-content">
@@ -1496,54 +1507,61 @@
         <!-- HERO SECTION -->
         <section class="hero">
             <div class="hero-background" id="heroBackground"></div>
-            <div class="hero-content">
-                <h1 class="hero-name">Flor</h1>
-                <p class="hero-subtitle">Mis 15 Años</p>
+            <div class="hero-star-container">
+                <svg class="star-shape" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M256 38.013l-79.102 160.247L1.013 223.73l128.573 125.307L99.24 512l156.76-82.413L412.76 512l-30.347-162.963L510.987 223.73l-175.885-25.47L256 38.013z" />
+                </svg>
+                <div class="hero-text">
+                    <h1 class="titulo-flor">Flor</h1>
+                    <h2 class="subtitulo-15">Mis 15 Años</h2>
+                </div>
             </div>
         </section>
 
-        <!-- MUSIC EXPERIENCE SECTION -->
+        <!-- MUSIC PLAYER SECTION -->
         <section class="music-section">
             <div class="music-container fade-in-up stagger-1">
-                <div class="music-album-art">
-                    <div class="album-cover" id="albumCover">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80" alt="Álbum" id="albumImage">
-                        <div class="album-overlay"></div>
-                    </div>
+                <!-- Texto de instrucción -->
+                <p class="music-instruction">Dale play a la magia...</p>
+                
+                <!-- Barra de progreso -->
+                <div class="music-progress-wrapper">
+                    <div class="music-progress-fill" id="musicProgressFill"></div>
+                    <input type="range" 
+                           class="music-progress-slider" 
+                           id="musicProgressSlider" 
+                           min="0" 
+                           max="100" 
+                           value="0"
+                           oninput="updateProgress(this.value)">
                 </div>
-                <div class="music-info">
-                    <p class="music-quote">"La música es el lenguaje del alma, y esta canción marca mi momento especial..."</p>
-                    <div class="music-details">
-                        <h3 class="music-title">Canción Especial</h3>
-                        <p class="music-artist">Artista Favorito</p>
-                    </div>
-                    <div class="music-controls">
-                        <div class="audio-visualizer" id="audioVisualizer">
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                            <div class="visualizer-bar"></div>
-                        </div>
-                        <button class="music-play-btn" id="musicPlayBtn" onclick="toggleMusic()">
-                            <i class="fas fa-play" id="playIcon"></i>
-                            <i class="fas fa-pause" id="pauseIcon"></i>
-                        </button>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="progressBar"></div>
-                        </div>
-                    </div>
+                
+                <!-- Controles horizontales -->
+                <div class="music-controls-row">
+                    <button class="music-control-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Aleatorio">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button class="music-control-btn" id="prevBtn" onclick="previousTrack()" title="Anterior">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="music-play-btn" id="musicPlayBtn" onclick="toggleMusic()" title="Reproducir/Pausar">
+                        <i class="fas fa-play" id="playIcon"></i>
+                        <i class="fas fa-pause" id="pauseIcon"></i>
+                    </button>
+                    <button class="music-control-btn" id="nextBtn" onclick="nextTrack()" title="Siguiente">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button class="music-control-btn" id="repeatBtn" onclick="toggleRepeat()" title="Repetir">
+                        <i class="fas fa-redo"></i>
+                    </button>
                 </div>
             </div>
-            <audio id="audioPlayer" loop>
-                <!-- Aquí puedes agregar tu archivo de audio -->
-                <!-- <source src="music.mp3" type="audio/mpeg"> -->
-            </audio>
+            <audio id="audioPlayer" src="./cancion.mp3" loop></audio>
         </section>
 
         <!-- COUNTDOWN -->
         <section class="countdown-section">
-            <h2 class="section-title fade-in-up" id="countdownTitle">La Fiesta Comienza En</h2>
+            <h2 class="section-title title-brush-bg fade-in-up" id="countdownTitle">La Fiesta Comienza En</h2>
             <div class="countdown-container fade-in-up stagger-1" id="countdownContainer">
                 <div class="countdown-item zoom-in stagger-1">
                     <div class="countdown-number" id="days">00</div>
@@ -1569,7 +1587,7 @@
             <div class="timeline-header fade-in-up">
                 <div class="timeline-header-title">
                     <div class="timeline-header-line"></div>
-                    <div class="timeline-header-text">
+                    <div class="timeline-header-text title-brush-bg">
                         <span class="timeline-header-small">La</span>
                         <span class="timeline-header-main">Fiesta</span>
                     </div>
@@ -1603,6 +1621,7 @@
                         </div>
                         <h3 class="info-title">Entrada</h3>
                         <p class="info-text">Adultos: $65.000</p>
+                        <p class="info-text">Menores: $20.000</p>
                     </div>
                     <div class="info-divider"></div>
                 </div>
@@ -1614,7 +1633,7 @@
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <h3 class="info-title">Dress Code</h3>
-                        <p class="info-text">Elegante Sport</p>
+                        <p class="info-text">Elegante</p>
                     </div>
                     <div class="info-divider"></div>
                 </div>
@@ -1626,18 +1645,19 @@
                             <i class="fas fa-gift"></i>
                         </div>
                         <h3 class="info-title">Regalo</h3>
-                        <p class="gift-quote">Tu presencia es mi mejor regalo. Si deseas tener un detalle conmigo...</p>
+                        <p class="gift-quote">Tu presencia es mi mejor regalo.</p>
+                        <p class="gift-quote">Si deseas tener un detalle conmigo...</p>
                         <div class="gift-data">
                             <div class="gift-item">
                                 <span class="gift-label">Alias</span>
-                                <span class="gift-value" id="aliasValue">FLOR.15AÑOS</span>
+                                <span class="gift-value" id="aliasValue">florfernandez9</span>
                             </div>
                             <div class="gift-item">
                                 <span class="gift-label">CBU</span>
-                                <span class="gift-value" id="cbuValue">1234567890123456789012</span>
+                                <span class="gift-value" id="cbuValue">0000003100003768323741</span>
                             </div>
                         </div>
-                        <button class="copy-btn" onclick="copyToClipboard('FLOR.15AÑOS', this)">Copiar Alias</button>
+                        <button class="copy-btn" onclick="copyToClipboard('florfernandez9', this)">Copiar Alias</button>
                     </div>
                 </div>
             </div>
@@ -1645,7 +1665,7 @@
 
         <!-- RSVP -->
         <section class="rsvp-section">
-            <a href="https://wa.me/5491123456789?text=Hola!%20Confirmo%20mi%20asistencia%20a%20tu%20fiesta%20de%2015%20años.%20¡Estoy%20muy%20emocionado/a!" 
+            <a href="https://wa.me/5493496505485?text=Hola!%20Confirmo%20mi%20asistencia%20a%20tu%20fiesta%20de%2015%20años.%20¡Estoy%20muy%20emocionado/a!" 
                target="_blank" 
                class="rsvp-btn fade-in-up stagger-1" 
                id="rsvpBtn">
@@ -1656,6 +1676,102 @@
 
 
     <script>
+        // ========== GENERACIÓN DE ESTRELLAS SVG ==========
+        function createStars() {
+            const starContainer = document.getElementById('star-container');
+            if (!starContainer) return;
+
+            const totalStars = 60;
+            const starsTopZone = Math.floor(totalStars * 0.7); // 70% en la parte superior
+            const starsBottomZone = totalStars - starsTopZone; // 30% en la parte inferior
+
+            // Path SVG de estrella de 5 puntas (estilo tiza/dibujada a mano)
+            const starPath = 'M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z';
+
+            // Función para crear una estrella individual
+            function createStar(topPercent, leftPercent, scale, opacity, animationDuration) {
+                const star = document.createElement('div');
+                star.className = 'star-svg';
+                
+                // Tamaño base de la estrella (24px)
+                const baseSize = 24;
+                const size = baseSize * scale;
+                
+                star.style.position = 'absolute';
+                star.style.top = topPercent + '%';
+                star.style.left = leftPercent + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.transform = 'translate(-50%, -50%)';
+                star.style.opacity = opacity;
+                
+                // Crear animación personalizada que respete la opacidad inicial
+                const animationName = `starTwinkle-${Math.random().toString(36).substr(2, 9)}`;
+                const minOpacity = opacity * 0.7;
+                const maxOpacity = Math.min(opacity * 1.5, 1);
+                
+                // Crear keyframes dinámicos
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes ${animationName} {
+                        0%, 100% { opacity: ${minOpacity}; }
+                        50% { opacity: ${maxOpacity}; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Aplicar animación personalizada
+                star.style.animation = `${animationName} ${animationDuration}s ease-in-out infinite`;
+                star.style.animationDelay = Math.random() * 2 + 's'; // Delay aleatorio
+
+                // Crear SVG de la estrella
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '24');
+                svg.setAttribute('height', '24');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', starPath);
+                path.setAttribute('fill', 'white');
+                
+                svg.appendChild(path);
+                star.appendChild(svg);
+                
+                return star;
+            }
+
+            // Generar estrellas en la Zona 1 (Portada: 0% - 40%)
+            for (let i = 0; i < starsTopZone; i++) {
+                const topPercent = Math.random() * 40; // Entre 0% y 40%
+                const leftPercent = Math.random() * 100; // Entre 0% y 100%
+                const scale = 0.5 + Math.random() * 0.7; // Entre 0.5 y 1.2
+                const opacity = 0.2 + Math.random() * 0.6; // Entre 0.2 y 0.8
+                const animationDuration = 2 + Math.random() * 4; // Entre 2s y 6s
+                
+                const star = createStar(topPercent, leftPercent, scale, opacity, animationDuration);
+                starContainer.appendChild(star);
+            }
+
+            // Generar estrellas en la Zona 2 (Resto: 40% - 100%)
+            for (let i = 0; i < starsBottomZone; i++) {
+                const topPercent = 40 + Math.random() * 60; // Entre 40% y 100%
+                const leftPercent = Math.random() * 100; // Entre 0% y 100%
+                const scale = 0.5 + Math.random() * 0.7; // Entre 0.5 y 1.2
+                const opacity = 0.2 + Math.random() * 0.6; // Entre 0.2 y 0.8
+                const animationDuration = 2 + Math.random() * 4; // Entre 2s y 6s
+                
+                const star = createStar(topPercent, leftPercent, scale, opacity, animationDuration);
+                starContainer.appendChild(star);
+            }
+        }
+
+        // Generar estrellas cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', createStars);
+        } else {
+            createStars();
+        }
+
         // ========== LOADER ==========
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -1777,72 +1893,115 @@
             if (el) observer.observe(el);
         });
 
-        // ========== MUSIC EXPERIENCE SECTION ==========
+        // ========== MUSIC PLAYER SECTION ==========
         const audioPlayer = document.getElementById('audioPlayer');
         const musicPlayBtn = document.getElementById('musicPlayBtn');
-        const albumCover = document.getElementById('albumCover');
-        const audioVisualizer = document.getElementById('audioVisualizer');
-        const musicContainer = document.querySelector('.music-container');
-        const progressBar = document.getElementById('progressBar');
+        const progressSlider = document.getElementById('musicProgressSlider');
+        const progressFill = document.getElementById('musicProgressFill');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const repeatBtn = document.getElementById('repeatBtn');
         let isPlaying = false;
-        let progressInterval = null;
+        let isShuffled = false;
+        let isRepeated = true; // Loop activado por defecto
+
+        function updateProgressFill(value) {
+            if (progressFill) {
+                progressFill.style.width = value + '%';
+            }
+        }
 
         function toggleMusic() {
             if (isPlaying) {
                 // Pausar música
                 audioPlayer.pause();
                 musicPlayBtn.classList.remove('playing');
-                albumCover.classList.remove('playing');
-                audioVisualizer.classList.remove('playing');
-                musicContainer.classList.remove('playing');
                 isPlaying = false;
-                
-                // Detener animación de progreso
-                if (progressInterval) {
-                    clearInterval(progressInterval);
-                    progressInterval = null;
-                }
             } else {
                 // Reproducir música
-                // Descomentar cuando tengas el archivo de audio:
-                // audioPlayer.play();
+                audioPlayer.play().catch(error => {
+                    console.error('Error al reproducir audio:', error);
+                    // Si hay error, puede ser que el navegador requiera interacción del usuario primero
+                });
                 
                 musicPlayBtn.classList.add('playing');
-                albumCover.classList.add('playing');
-                audioVisualizer.classList.add('playing');
-                musicContainer.classList.add('playing');
                 isPlaying = true;
-                
-                // Mostrar mensaje si no hay audio
-                if (audioPlayer.src === '') {
-                    console.log('Agrega tu archivo de audio en el elemento <audio>');
-                } else {
-                    // Simular progreso de la canción
-                    let progress = 0;
-                    progressInterval = setInterval(() => {
-                        if (isPlaying) {
-                            progress += 0.33; // Simula progreso
-                            if (progress > 100) progress = 0;
-                            progressBar.style.width = progress + '%';
-                        }
-                    }, 100);
-                }
             }
         }
 
-        // Actualizar progreso cuando el audio se reproduce realmente
-        if (audioPlayer) {
+        function simulateProgress() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (isPlaying && audioPlayer.src === '') {
+                    progress += 0.33;
+                    if (progress > 100) progress = 0;
+                    progressSlider.value = progress;
+                    updateProgressFill(progress);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+
+        function toggleShuffle() {
+            isShuffled = !isShuffled;
+            shuffleBtn.classList.toggle('active', isShuffled);
+        }
+
+        function toggleRepeat() {
+            isRepeated = !isRepeated;
+            audioPlayer.loop = isRepeated;
+            repeatBtn.classList.toggle('active', isRepeated);
+        }
+
+        function previousTrack() {
+            // Funcionalidad para canción anterior (implementar si hay múltiples canciones)
+            if (audioPlayer.currentTime > 3) {
+                audioPlayer.currentTime = 0;
+            } else {
+                audioPlayer.currentTime = 0;
+            }
+        }
+
+        function nextTrack() {
+            // Funcionalidad para siguiente canción (implementar si hay múltiples canciones)
+            audioPlayer.currentTime = 0;
+            if (isPlaying) {
+                audioPlayer.play();
+            }
+        }
+
+        function updateProgress(value) {
+            if (audioPlayer.duration) {
+                audioPlayer.currentTime = (value / 100) * audioPlayer.duration;
+            }
+            updateProgressFill(value);
+        }
+
+        // Actualizar slider cuando el audio se reproduce realmente
+        if (audioPlayer && progressSlider) {
             audioPlayer.addEventListener('timeupdate', () => {
                 if (audioPlayer.duration) {
                     const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-                    progressBar.style.width = progress + '%';
+                    progressSlider.value = progress;
+                    updateProgressFill(progress);
                 }
             });
 
             audioPlayer.addEventListener('ended', () => {
-                // Si el audio termina, resetear
-                progressBar.style.width = '0%';
+                if (!isRepeated) {
+                    musicPlayBtn.classList.remove('playing');
+                    isPlaying = false;
+                    progressSlider.value = 0;
+                    updateProgressFill(0);
+                }
             });
+
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                progressSlider.max = 100;
+            });
+
+            // Inicializar progreso en 0
+            updateProgressFill(0);
         }
 
         // ========== COPY TO CLIPBOARD ==========
