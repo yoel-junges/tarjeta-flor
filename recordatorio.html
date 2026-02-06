@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 Años - Recordatorio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Capa 1: Foto de fondo */
+        .background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('./portada.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Capa 2: Overlay oscuro */
+        .overlay-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        /* Capa 3: Contenido */
+        .content-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+            box-sizing: border-box;
+        }
+
+        /* Bloque Superior: Estrella */
+        .top-block {
+            margin-top: 2vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .star-container {
+            position: relative;
+            width: 200px;
+            max-width: 50vw;
+            aspect-ratio: 1 / 1;
+            transform: scale(0.75);
+        }
+
+        .star-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            fill: transparent;
+            stroke: #ffffff;
+            stroke-width: 8px;
+        }
+
+        .star-text {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding-top: 8%;
+        }
+
+        .titulo-flor {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 700;
+            margin: 0;
+            color: #ffffff;
+            line-height: 1;
+            font-style: italic;
+        }
+
+        .subtitulo-15 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: transparent;
+            background: linear-gradient(45deg, #C0C0C0, #E8E8E8, #C0C0C0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            margin: 0.3rem 0 0 0;
+        }
+
+        /* Bloque Inferior: Fecha + Contador */
+        .bottom-block {
+            margin-bottom: 5vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+        }
+
+        /* Fecha y Hora */
+        .date-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Contador */
+        #countdown {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 15px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .countdown-label {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding: 30px 15px;
+            }
+
+            .star-container {
+                transform: scale(0.7);
+            }
+
+            .date-time {
+                font-size: 1.2rem;
+            }
+
+            .countdown-item {
+                padding: 8px 12px;
+                min-width: 50px;
+            }
+
+            .countdown-number {
+                font-size: 1rem;
+            }
+
+            .countdown-label {
+                font-size: 0.5rem;
+            }
+
+            .bottom-block {
+                gap: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Capa 1: Foto de fondo -->
+    <div class="background-layer"></div>
+
+    <!-- Capa 2: Overlay oscuro -->
+    <div class="overlay-layer"></div>
+
+    <!-- Capa 3: Contenido -->
+    <div class="content-wrapper">
+        <!-- Bloque Superior: Estrella -->
+        <div class="top-block">
+            <div class="star-container">
+                <svg class="star-shape" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M256 38.013l-79.102 160.247L1.013 223.73l128.573 125.307L99.24 512l156.76-82.413L412.76 512l-30.347-162.963L510.987 223.73l-175.885-25.47L256 38.013z" />
+                </svg>
+                <div class="star-text">
+                    <h1 class="titulo-flor">Flor</h1>
+                    <h2 class="subtitulo-15">Mis 15 Años</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloque Inferior: Fecha + Contador -->
+        <div class="bottom-block">
+            <!-- Fecha y Hora -->
+            <h2 class="date-time">28 de Febrero • 21:00 hs</h2>
+
+            <!-- Contador -->
+            <div id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== COUNTDOWN ==========
+        const eventDate = new Date('2026-02-28T21:00:00').getTime();
+
+        let previousValues = {
+            days: null,
+            hours: null,
+            minutes: null,
+            seconds: null
+        };
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            function updateWithPop(elementId, newValue, oldValue) {
+                const element = document.getElementById(elementId);
+                if (element && newValue !== oldValue) {
+                    element.textContent = String(newValue).padStart(2, '0');
+                    element.classList.add('pop');
+                    setTimeout(() => {
+                        element.classList.remove('pop');
+                    }, 400);
+                }
+            }
+
+            updateWithPop('days', days, previousValues.days);
+            updateWithPop('hours', hours, previousValues.hours);
+            updateWithPop('minutes', minutes, previousValues.minutes);
+            updateWithPop('seconds', seconds, previousValues.seconds);
+
+            previousValues = { days, hours, minutes, seconds };
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
